@@ -1,0 +1,12 @@
+**/node_modules
+
+**/.env
+
+my-portfolio/dist
+my-portfolio/build
+
+portfolio-backend/logs
+*.log
+
+.DS_Store
+Thumbs.db
