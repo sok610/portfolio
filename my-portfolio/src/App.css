@@ -42,7 +42,7 @@ body {
 
 /* Left column for name and navigation */
 .left-column {
-  flex: 0 0 400px;
+  flex: 0 0 370px;
   display: flex;
   flex-direction: column;
   z-index: 10; /* Ensures it's on top of the sketch */
@@ -61,7 +61,7 @@ body {
 .portfolio-header h1 {
   font-size: 3.5rem;
   font-weight: 500;
-  margin: 0;
+  margin: 0px;
 }
 
 .portfolio-header .subtitle {
@@ -194,12 +194,16 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .project-media video {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 /* Overlay for the play button */
@@ -268,15 +272,76 @@ body {
   text-decoration: underline;
 }
 
-/* Generative Art Sketch Container */
-.sketch-container {
-  position: absolute;
-  top: 0;
-  left: 0;
+
+.info-page-layout {
   width: 100%;
   height: 100%;
-  z-index: 1;
+  text-align: left;
+  overflow-y: auto;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
+
+
+/* Row 1: Profile Picture */
+.info-profile-picture-container {
+  text-align: center; /* 이미지 가운데 정렬 */
+  margin-bottom: 40px;
+}
+
+.profile-picture {
+  max-width: 250px; /* 사진의 최대 너비 지정 */
+  width: 100%;
+  height: auto;
+  border-radius: 50%; /* 사진을 원형으로 만듦 */
+  object-fit: cover; /* 원형을 채우도록 이미지 조절 */
+}
+
+/* Rows 2 & 3: About Me and Skills Sections */
+.info-section {
+  margin-bottom: 40px;
+  max-width: 800px; /* 텍스트 가독성을 위해 최대 너비 지정 */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.info-section h2 {
+  font-size: 1.8rem;
+  margin-top: 0;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.info-section p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #555;
+}
+
+/* Skills Grid Layout (unchanged) */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+}
+
+.skill-category h3 {
+  font-size: 1.2rem;
+  margin-top: 0;
+}
+
+.skill-category ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.skill-category li {
+  margin-bottom: 10px;
+  color: #444;
+}
+
 
 /* Fade-in Animation */
 @keyframes fadeInBox {
