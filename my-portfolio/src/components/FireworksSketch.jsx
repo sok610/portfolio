@@ -2,12 +2,19 @@ import React, { useRef } from 'react';
 import Sketch from 'react-p5';
 
 const FIREWORK_COLORS = [
-  [209, 237, 234, 255], // Anticipation
-  [252, 221, 228, 255], // Surprise
-  [248, 204, 192, 255], // Anger
-  [188, 212, 246, 255], // Sadness
-  [250, 227, 160, 255], // Joy
+  [255, 64, 64, 255],   // Vivid Red
+  [255, 184, 28, 255],  // Vivid Amber/Orange
+  [64, 224, 64, 255],   // Vivid Green
+  [64, 160, 255, 255],  // Vivid Sky Blue
+  [200, 64, 255, 255],  // Vivid Purple
 ];
+
+const PARTICLE_SIZE = 3;           
+const PARTICLE_COUNT = 35;         
+const EXPLOSION_SPEED_MIN = 0.8;   
+const EXPLOSION_SPEED_MAX = 3.0;   
+const VELOCITY_DAMPING = 0.88;     
+const LIFESPAN_DECAY = 8;
 
 class Particle {
   constructor(p5, x, y, hue) {
@@ -19,23 +26,23 @@ class Particle {
 
     // 🔧 인스턴스 메서드만 사용 (random2D 대체)
     const angle = this.p5.random(0, this.p5.TWO_PI);
-    const speed = this.p5.random(2, 10);
+    const speed = this.p5.random(EXPLOSION_SPEED_MIN, EXPLOSION_SPEED_MAX);
     this.vel = this.p5.createVector(this.p5.cos(angle), this.p5.sin(angle)).mult(speed);
   }
 
   applyForce(force) { this.acc.add(force); }
 
   update() {
-    this.vel.mult(0.9);
+    this.vel.mult(VELOCITY_DAMPING);
     this.vel.add(this.acc);
     this.pos.add(this.vel);
     this.acc.mult(0);
-    this.lifespan -= 8;
+    this.lifespan -= LIFESPAN_DECAY;
   }
 
   show() {
     this.p5.stroke(this.hue[0], this.hue[1], this.hue[2], this.lifespan);
-    this.p5.strokeWeight(2);
+    this.p5.strokeWeight(PARTICLE_SIZE);
     this.p5.point(this.pos.x, this.pos.y);
   }
 
@@ -49,6 +56,7 @@ class Firework {
     this.exploded = false;
     this.particles = [];
     this.target = p5.createVector(targetX, targetY);
+    this.color = p5.random(FIREWORK_COLORS);
     if (instant) {
       this.exploded = true;
       this.explode();
@@ -85,9 +93,8 @@ class Firework {
   }
 
   explode() {
-    for (let i = 0; i < 100; i++) {
-      const randomColor = this.p5.random(FIREWORK_COLORS);
-      this.particles.push(new Particle(this.p5, this.target.x, this.target.y, randomColor));
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      this.particles.push(new Particle(this.p5, this.target.x, this.target.y, this.color));
     }
   }
 
@@ -102,16 +109,23 @@ const FireworksSketch = () => {
   let containerEl = null;
 
   const setup = (p5, canvasParentRef) => {
-    // 🔧 react-p5 래퍼의 부모(.sketch-container)를 기준으로 사이즈 계산
     containerEl = canvasParentRef.parentElement;
-    const w = containerEl.clientWidth;
-    const h = containerEl.clientHeight;
-
+    const rect = containerEl.getBoundingClientRect();
+    const w = Math.round(rect.width);
+    const h = Math.round(rect.height);
+    const cnv = p5.createCanvas(w, h);
     p5.createCanvas(w, h).parent(containerEl);
-    p5.pixelDensity(1); // HiDPI에서 사이즈 mismatch 방지
+    p5.pixelDensity(1);
   };
 
   const draw = (p5) => {
+    if (containerEl) {
+      const w = Math.round(containerEl.clientWidth);
+      const h = Math.round(containerEl.clientHeight);
+      if (p5.width !== w || p5.height !== h) {
+        p5.resizeCanvas(w, h, true);
+      }
+    }
     p5.background(0, 25);
     const fireworks = fireworksRef.current;
     for (let i = fireworks.length - 1; i >= 0; i--) {
@@ -133,8 +147,9 @@ const FireworksSketch = () => {
     if (!containerEl) containerEl = p5.canvas?.parentElement;
     if (!containerEl) return;
 
-    const w = containerEl.clientWidth;
-    const h = containerEl.clientHeight;
+    const rect = containerEl.getBoundingClientRect();
+    const w = Math.round(containerEl.clientWidth);
+    const h = Math.round(containerEl.clientHeight);
     p5.resizeCanvas(w, h);
   };
 
