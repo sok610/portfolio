@@ -285,22 +285,22 @@ body {
 
 /* Row 1: Profile Picture */
 .info-profile-picture-container {
-  text-align: center; /* 이미지 가운데 정렬 */
+  text-align: center;
   margin-bottom: 40px;
 }
 
 .profile-picture {
-  max-width: 250px; /* 사진의 최대 너비 지정 */
+  max-width: 250px;
   width: 100%;
   height: auto;
-  border-radius: 50%; /* 사진을 원형으로 만듦 */
-  object-fit: cover; /* 원형을 채우도록 이미지 조절 */
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 /* Rows 2 & 3: About Me and Skills Sections */
 .info-section {
   margin-bottom: 40px;
-  max-width: 800px; /* 텍스트 가독성을 위해 최대 너비 지정 */
+  max-width: 800px;
   margin-left: auto;
   margin-right: auto;
 }
