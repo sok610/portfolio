@@ -114,12 +114,12 @@ body {
 .home-intro-text {
   width: 20ch;
   font-size: 1.3rem;
-  line-height: 1.7;
+  line-height: 1.0;
   text-align: left;
   color: #555;
   position: absolute;
-  bottom: 40px;
-  right: 40px;
+  bottom: 20px;
+  right: 20px;
 }
 
 /* Generic container for page content */
@@ -319,27 +319,75 @@ body {
   color: #555;
 }
 
-/* Skills Grid Layout (unchanged) */
+/* === Skills layout (cards + pill badges) === */
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(2, minmax(260px, 1fr)); /* 2열 */
+  gap: 24px;
 }
 
-.skill-category h3 {
-  font-size: 1.2rem;
-  margin-top: 0;
+@media (max-width: 900px) {
+  .skills-grid {
+    grid-template-columns: 1fr; /* 모바일 1열 */
+  }
 }
 
-.skill-category ul {
+.skill-card {
+  border: 1px solid #e6e6e6;
+  border-radius: 14px;
+  padding: 18px 18px 14px;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(2px);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+}
+
+.skill-card h3 {
+  margin: 0 0 12px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: .2px;
+}
+
+/* 배지 리스트 */
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 10px;     /* row gap / column gap */
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.skill-category li {
-  margin-bottom: 10px;
-  color: #444;
+/* 컬러 배지 (살짝 파스텔 + 가독성 좋은 텍스트 색) */
+.skill-badge {
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  line-height: 1;
+  border: 1px solid rgba(0,0,0,0.06);
+  background: linear-gradient(180deg, #ffffff 0%, #f6f7ff 100%);
+  color: #333;
+  white-space: nowrap;
+}
+
+/* 배지 강조(hover) */
+.skill-badge:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+  transition: all .18s ease;
+}
+
+/* Info section 제목 살짝 강조 */
+.info-section h2 {
+  font-size: 1.8rem;
+  margin-top: 0;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+  margin-bottom: 18px;
+}
+
+.contact-page-layout {
+  padding-left: 40px; /* 기존보다 오른쪽으로 30px 이동 */
 }
 
 /* --- Home intro: staggered reveal with subtle blur --- */
@@ -362,6 +410,59 @@ body {
   opacity: .6;
   animation: caretBlink 1s steps(1) infinite;
 }
+
+/* --- Animated Colored Moving Grid Lines Pattern --- */
+.right-column {
+  position: relative;
+  isolation: isolate;
+}
+
+.with-grid::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+
+  --grid-color-vertical: rgba(173,216,230,1);
+  --grid-color-horizontal: rgba(221,160,221,1);
+
+  background:
+    linear-gradient(90deg, var(--grid-color-vertical) 2px, transparent 2px),
+    linear-gradient(0deg, var(--grid-color-horizontal) 2px, transparent 2px);
+  background-size: 28px 28px;
+  background-position: 0 0, 0 0;
+
+  animation:
+    moveGrid 25s linear infinite,
+    shiftGridColors 10s ease-in-out infinite alternate;
+}
+
+@keyframes moveGrid {
+  to {
+    background-position: 200% 0, 0 200%;
+  }
+}
+
+@keyframes shiftGridColors {
+  0% {
+    --grid-color-vertical: rgba(173, 216, 230, 1);   /* lightblue - 완전 불투명 */
+    --grid-color-horizontal: rgba(221, 160, 221, 1); /* plum */
+  }
+  33% {
+    --grid-color-vertical: rgba(144, 238, 144, 0.95); /* lightgreen */
+    --grid-color-horizontal: rgba(255, 182, 193, 0.95); /* pink */
+  }
+  66% {
+    --grid-color-vertical: rgba(255, 218, 185, 1);   /* peach */
+    --grid-color-horizontal: rgba(176, 224, 230, 0.95); /* powderblue */
+  }
+  100% {
+    --grid-color-vertical: rgba(173, 216, 230, 1);   /* back to lightblue */
+    --grid-color-horizontal: rgba(221, 160, 221, 1); /* back to plum */
+  }
+}
+
 
 @keyframes homeLineIn {
   to {
