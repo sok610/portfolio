@@ -75,6 +75,11 @@ body {
 .header-link {
   color: inherit;
   text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.header-link:hover {
+  color: #bfa7f2;
 }
 
 .vertical-nav {
@@ -557,11 +562,11 @@ body {
 }
 
 .contact-card:hover .contact-info h3 {
-  color: #4a90e2;
+  color: #bfa7f2;
 }
 
 .contact-card:hover .contact-info p {
-  color: #555;
+  color: #bfa7f2;
 }
 
 /* Staggered animation for contact cards */
