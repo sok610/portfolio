@@ -125,6 +125,7 @@ body {
   position: absolute;
   bottom: 20px;
   right: 20px;
+  font-family: "Gaegu", cursive;
 }
 
 /* Generic container for page content */
@@ -408,6 +409,7 @@ body {
 .home-intro-text p:nth-child(2) { animation-delay: .12s; }
 .home-intro-text p:nth-child(3) { animation-delay: .24s; }
 .home-intro-text p:nth-child(4) { animation-delay: .36s; }
+.home-intro-text p:nth-child(5) { animation-delay: .48s; }
 
 /* 마지막 줄에 커서 깜빡임 효과 */
 .home-intro-text p:last-child::after {
