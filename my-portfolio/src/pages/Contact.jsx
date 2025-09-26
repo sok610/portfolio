@@ -15,7 +15,6 @@ function ContactPage() {
             <p>ssekim.610@gmail.com</p>
           </div>
         </a>
-        <br></br>
 
         {/* LinkedIn */}
         <a href="https://www.linkedin.com/in/ssekim610" target="_blank" rel="noopener noreferrer" className="contact-card">
@@ -24,7 +23,6 @@ function ContactPage() {
             <p>linkedin.com/in/ssekim610</p>
           </div>
         </a>
-        <br></br>
 
         {/* GitHub */}
         <a href="https://github.com/sok610" target="_blank" rel="noopener noreferrer" className="contact-card">

@@ -1,5 +1,5 @@
 import React from 'react';
-import profilePic from "../assets/images/ProfilePic.png";
+import profilePic from "../assets/images/ProfilePic.jpg";
 
 function InfoPage() {
   return (
@@ -13,9 +13,13 @@ function InfoPage() {
       <section className="info-section">
         <h2>About Me</h2>
         <p>
-          I am a passionate developer with a love for creating beautiful and functional web applications.
-          My journey in software development is driven by a curiosity to learn new technologies and a desire
-          to solve real-world problems through code.
+          I'm a Computer Science graduate from UC Berkeley with a passion for building intelligent systems that bridge the gap between AI research and real-world applications. My work spans from optimizing recommendation engines with 95% latency reduction to implementing advanced AI algorithms like Q-learning and particle filters.
+        </p>
+        <p>
+          What drives me is the intersection of machine learning and user experience—whether that's creating emotion-driven music recommendations through NLP or building robust database systems that power enterprise applications. I believe in meticulous documentation, clean code architecture, and the power of data-driven optimization to create software that not only works but truly enhances people's lives.
+        </p>
+        <p>
+          Currently, I'm exploring how AI can make software more intuitive and accessible, with hands-on experience in everything from geospatial data processing to social platform development. When I'm not coding, you'll find me swimming laps or diving into the latest LLM and machine learning books.
         </p>
       </section>
 
