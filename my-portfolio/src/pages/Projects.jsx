@@ -125,7 +125,7 @@ function ProjectsPage() {
                     loop 
                     muted 
                     playsInline
-                    preload="metadata"
+                    preload="none"
                     key={activeProject.mediaUrl}
                     onLoadStart={handleVideoLoadStart}
                     onCanPlay={handleVideoCanPlay}
@@ -140,6 +140,15 @@ function ProjectsPage() {
                   )}
                   <div className="video-overlay" onClick={handleVideoControl}>
                     {!isPlaying && isVideoLoaded && <div className="play-button">▶</div>}
+                    {!isVideoLoaded && !isVideoLoading && (
+                      <div className="load-video-button" onClick={() => {
+                        if (videoRef.current) {
+                          videoRef.current.load();
+                        }
+                      }}>
+                        ▶ Load Video
+                      </div>
+                    )}
                   </div>
                 </>
               ) : (
