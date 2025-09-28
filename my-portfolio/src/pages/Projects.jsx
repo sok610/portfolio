@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import soundlogVideo from "../assets/videos/SoundlogVideo.mov";
 import pacmanVideo from "../assets/videos/PacmanVideo.mov";
@@ -61,6 +61,8 @@ function ProjectsPage() {
 
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [isVideoLoading, setIsVideoLoading] = useState(false);
 
   const handleVideoControl = () => {
     if (isPlaying) {
@@ -68,9 +70,31 @@ function ProjectsPage() {
     } else {
       videoRef.current.play();
     }
-    setIsPlaying(!isPlaying); // 재생 상태를 반전시킴
+    setIsPlaying(!isPlaying);
   };
-  // --- 여기까지 추가 ---
+
+  // Handle video loading states
+  const handleVideoLoadStart = () => {
+    setIsVideoLoading(true);
+    setIsVideoLoaded(false);
+  };
+
+  const handleVideoCanPlay = () => {
+    setIsVideoLoaded(true);
+    setIsVideoLoading(false);
+  };
+
+  const handleVideoError = () => {
+    setIsVideoLoading(false);
+    console.error('Video failed to load');
+  };
+
+  // Reset video state when switching projects
+  useEffect(() => {
+    setIsVideoLoaded(false);
+    setIsVideoLoading(false);
+    setIsPlaying(false);
+  }, [activeProjectId]);
 
   return (
     <div className="page-content project-tab-view">
@@ -101,10 +125,21 @@ function ProjectsPage() {
                     loop 
                     muted 
                     playsInline
+                    preload="metadata"
                     key={activeProject.mediaUrl}
+                    onLoadStart={handleVideoLoadStart}
+                    onCanPlay={handleVideoCanPlay}
+                    onError={handleVideoError}
+                    style={{ opacity: isVideoLoaded ? 1 : 0 }}
                   />
+                  {isVideoLoading && (
+                    <div className="video-loading">
+                      <div className="loading-spinner"></div>
+                      <p>Loading video...</p>
+                    </div>
+                  )}
                   <div className="video-overlay" onClick={handleVideoControl}>
-                    {!isPlaying && <div className="play-button">▶</div>}
+                    {!isPlaying && isVideoLoaded && <div className="play-button">▶</div>}
                   </div>
                 </>
               ) : (
@@ -112,6 +147,7 @@ function ProjectsPage() {
                   src={activeProject.mediaUrl} 
                   alt={activeProject.title}
                   key={activeProject.mediaUrl}
+                  loading="lazy"
                 />
               )}
             </div>
