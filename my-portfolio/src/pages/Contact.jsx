@@ -3,10 +3,6 @@ import React from 'react';
 function ContactPage() {
   return (
     <div className="page-content contact-page-layout">
-      <br></br>
-      <br></br>
-      <br></br>
-
       <div className="contact-grid">
         {/* Email */}
         <a href="mailto:ssekim.610@gmail.com" className="contact-card">

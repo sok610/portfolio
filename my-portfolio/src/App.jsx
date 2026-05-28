@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Link, NavLink, useLocation } from 'react-router-dom';
+import resumePDF from './assets/SongeunKim_Resume_Download.pdf';
 import './App.css';
 
 import HomePage from './pages/Home';
@@ -27,6 +28,11 @@ function Shell() {
               <li><NavLink to="/info">{({ isActive }) => (isActive ? '•' : 'Info')}</NavLink></li>
               <li><NavLink to="/projects">{({ isActive }) => (isActive ? '•' : 'Projects')}</NavLink></li>
               <li><NavLink to="/contact">{({ isActive }) => (isActive ? '•' : 'Contact')}</NavLink></li>
+              <li>
+                <a href={resumePDF} download="SongeunKim_Resume.pdf" className="resume-download-link">
+                  Resume ↓
+                </a>
+              </li>
             </ul>
           </nav>
         </div>
